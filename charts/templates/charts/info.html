@@ -23,9 +23,9 @@
 	      <div class="sidebar-sticky">
 	        <ul class="nav flex-column">
 	          <li class="nav-item">
-	            <a class="nav-link" href="/charts/dashboard/{{ stock.id }}">
+	            <a class="nav-link" href="/charts/analysis/{{ stock.id }}">
 	              <span data-feather="home"></span>
-	              DASHBOARD 
+	              ANALYSIS
 	            </a>
 	          </li>
 	          <li class="nav-item">
@@ -49,8 +49,42 @@
 		        <h1 class="h2">{{info.name}}</h1>
 		    </div>
 		    <div class="row">
-	      		<div class="card">
-	      			<h3>We're sorry that we couldn’t find anything on this topic.</h3>
+	      		<div class="card" style="width:100%">
+	      			<table class="table table-hover table-borderless">
+				      	<tbody>
+				        	<tr>
+				            	<td scope="row" class="h5">SYMBOL</td>
+				            	<td scope="col">{{info.symbol}}</td>
+				            </tr>
+				            <tr>
+				            	<td scope="row" class="h5">PRICE</td>
+				            	<td scope="col">{{info.close}}</td>
+				            </tr>
+				            <tr>
+				            	<td scope="row" class="h5">CHANGE</td>
+				            	<td scope="col">{{info.diff}}</td>
+				          	</tr>
+				          	<tr>
+				          		<td scope="row" class="h5">DATA</td>
+				          		<td scope="col">
+				          			<form class="form-inline" style="margin-top:1rem;" method="GET" action="/charts/download/{{ stock.id }}/" target="_blank">
+							        	<select class="custom-select form-control mb-2" name="period">
+											<option value="1m">1 Minute</option>
+										  	<option value="5m">5 Minute</option>
+										  	<option value="15m">15 Minute</option>
+										  	<option value="30m">30 Minute</option>
+										  	<option value="1h">Hourly</option>
+										  	<option value="1d">Daily</option>
+										  	<option value="1wk">Weekly</option>
+										  	<option value="1mo">Monthly</option>
+										  	<option value="1y">Yearly</option>
+										</select>
+										<button class="form-control mb-2" type="submit">Download</button>
+									</form>
+				          		</td>
+				          	</tr>
+				    	</tbody>
+				  	</table>
 	      		</div>
 	      	</div>
 		    

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404,render
 from django.db.models import Q
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,FileResponse
 from .models import Stock
 
 from bs4 import BeautifulSoup
@@ -12,7 +12,7 @@ import urllib.parse
 def index(request):
 	return render(request, 'charts/home.html',{})
 
-def dashboard(request,stock_id):
+def analysis(request,stock_id):
 	period = request.GET.get('period')
 	stock = get_object_or_404(Stock, pk=stock_id)
 
@@ -75,6 +75,19 @@ def info(request,stock_id):
 		'stock':stock,
 		'info':stock.get_stock_info()
 		})
+
+def download(request,stock_id):
+	stock = get_object_or_404(Stock, pk=stock_id)
+	period = request.GET.get('period')
+
+	if period:
+		data = stock.get_stock_data(period)
+	else:
+		data = stock.get_stock_data()
+
+	file = data.to_excel(str(stock.name)+str(period)+".xlsx")
+	response = FileResponse(open(str(stock.name)+str(period)+".xlsx", 'rb'))
+	return response
 
 def search(request):
 	search_word = str(request.GET.get('search_query'))

@@ -15,7 +15,7 @@ future==0.18.2
 gunicorn==20.0.4
 html5lib==1.1
 idna==2.9
-joblib==0.15.1
+joblib==1.2.0
 Js2Py==0.70
 lxml==4.5.1
 multitasking==0.0.9
